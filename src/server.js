@@ -1,6 +1,9 @@
-import Hapi from 'hapi';	
-var inert = require('inert');
-const vision = require('vision');
+var Hapi = require('hapi');
+var intert = require('inert');
+const Vision = require('vision');
+
+import routes from './routes'
+
 
 var server = new Hapi.Server();
 
@@ -8,15 +11,14 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/restdemo');
 
-import routes from './routes'
 
 server.connection({
-	port: 8080 
+	port:8000
 });
 
 server.register([
-	inert,
-	vision,
+	intert,
+	Vision,
 	{
 		register:require('hapi-swagger')
 	}],function(err){
@@ -29,7 +31,7 @@ server.register([
 
 server.route(routes)
 
-server.start(err =>{
+server.start(err => {
 	if(err){
 		console.log(err);
 	}
